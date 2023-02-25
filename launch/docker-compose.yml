@@ -1,0 +1,8 @@
+version: "3.8"
+
+services:
+  busbot:
+    image: atmtrans/busbot
+    environment:
+      BOT_TOKEN: ${BOT_TOKEN}
+      BOT_NAME: ${BOT_NAME}
