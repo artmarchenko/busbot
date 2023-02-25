@@ -27,6 +27,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: 17
+          distribution: tamurin
 
       - name: Publish to Docker Hub
 #        if: "startsWith(env.TAG_NAME, 'dev') || startsWith(env.TAG_NAME, 'release')"
