@@ -50,7 +50,7 @@ jobs:
           HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
         run:
           docker pull atmtrans/busbot &&
-          docker tag atmtrans/busbot registry.heroku.com/atmtrans/busbot &&
+          docker tag atmtrans/busbot registry.heroku.com/busbot/web &&
           docker push registry.heroku.com/busbot/web
       - name: Deploy application to Heroku
         env:
