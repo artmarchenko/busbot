@@ -38,7 +38,7 @@
         <profile>
             <id>pushToDockerHub</id>
             <properties>
-                <jib.goal>dockerBuild</jib.goal>
+                <jib.goal>build</jib.goal>
             </properties>
         </profile>
     </profiles>
@@ -100,6 +100,12 @@
                 <artifactId>jib-maven-plugin</artifactId>
                 <version>${jib.version}</version>
                 <configuration>
+                    <from>
+                        <auth>
+                            <username>${env.DOCKER_HUB_USERNAME}</username>
+                            <password>${env.DOCKER_HUB_TOKEN}</password>
+                        </auth>
+                    </from>
                     <to>
                         <image>atmtrans/busbot</image>
                         <tags>
