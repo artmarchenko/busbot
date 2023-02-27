@@ -34,7 +34,7 @@ jobs:
         run: >-
           mvn 
           clean install
-          -PpushToDocker         
+          -PpushToDockerHub
 
   deploy:
     needs: package
