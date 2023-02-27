@@ -21,7 +21,7 @@
         <java.target>17</java.target>
         <version.major>0</version.major>
         <version.minor>0</version.minor>
-        <version.patch>2</version.patch>
+        <version.patch>3</version.patch>
         <version.ci.revision>SNAPSHOT</version.ci.revision>
 
         <!--Dependency properties-->
