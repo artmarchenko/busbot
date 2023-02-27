@@ -11,7 +11,7 @@ public class Hello implements Action {
 
     @Override
     public String handle(String msg) {
-        return "Привіт, ти хто?!!";
+        return "Привіт, ти хто?";
     }
 
     @Override
