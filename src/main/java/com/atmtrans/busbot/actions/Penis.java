@@ -2,7 +2,9 @@ package com.atmtrans.busbot.actions;
 
 import java.util.Collection;
 
+
 public record Penis(Collection<Action> children) implements Action {
+
     @Override
     public String handle(String msg) {
         return "хароший выбор";

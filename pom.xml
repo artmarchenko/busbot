@@ -17,6 +17,9 @@
     <description>busbot</description>
     <properties>
         <!--Project properties-->
+        <!--suppress UnresolvedMavenProperty -->
+        <checkstyle.configLocation>${maven.multiModuleProjectDirectory}/.github/checkstyle-configuration.xml
+        </checkstyle.configLocation>
         <java.version>17</java.version>
         <java.target>17</java.target>
         <version.major>0</version.major>
@@ -25,6 +28,7 @@
         <version.ci.revision>SNAPSHOT</version.ci.revision>
 
         <!--Dependency properties-->
+        <checkstyle.version>10.8.0</checkstyle.version>
         <telegrambots.version>6.5.0</telegrambots.version>
         <tinylog-api.version>2.6.0</tinylog-api.version>
         <tinylog-impl.version>2.6.0</tinylog-impl.version>
@@ -32,6 +36,7 @@
         <!--Plugin properties-->
         <jib.version>3.3.1</jib.version>
         <jib.goal>dockerBuild</jib.goal>
+        <maven.checkstyle.plugin.version>3.2.1</maven.checkstyle.plugin.version>
     </properties>
 
     <profiles>
@@ -82,18 +87,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
 
             <plugin>
                 <groupId>com.google.cloud.tools</groupId>
@@ -130,6 +123,47 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven.checkstyle.plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>${checkstyle.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <configLocation>${checkstyle.configLocation}</configLocation>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>checkstyle</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
             </plugin>
         </plugins>
     </build>

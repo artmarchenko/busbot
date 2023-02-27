@@ -1,11 +1,12 @@
 package com.atmtrans.busbot.actions;
 
-import lombok.RequiredArgsConstructor;
-
 import java.util.Collection;
+
+import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class NotOrc implements Action {
+
     private final Collection<Action> children;
 
     @Override
