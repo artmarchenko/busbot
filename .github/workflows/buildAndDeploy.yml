@@ -16,7 +16,7 @@ jobs:
       BOT_NAME: ${{ secrets.BOT_NAME }}
       BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
       DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME}}
-      DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD}}
+      DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN}}
 
     steps:
       - uses: actions/checkout@v2
