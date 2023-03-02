@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: postgres:14
+    volumes:
+      - busbot-pg-data:/var/lib/postgresql/data
+    ports:
+      - 65432:5432
+    environment:
+      POSTGRES_USER: daslogin
+      POSTGRES_PASSWORD: lepassword
+      POSTGRES_DB: busbot
+
+volumes:
+  busbot-pg-data:
