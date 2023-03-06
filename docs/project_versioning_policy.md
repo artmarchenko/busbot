@@ -5,9 +5,9 @@ Whenever you want to participate to develop some functionality or contribute
 some changes to the current project, please follow rules described in this
 file.
 
-#### Git Flow
-
 ___
+
+### Git Flow
 
 The GitFlow schema approved for this project is illustrated by the following
 sketch.
@@ -26,7 +26,8 @@ release.
 * ```dev``` branch: Develop branch should be inherited from latest master
 version. Developers should to create a separate ```feature``` branches for
 implement new functionality and open a pull request to push back a workable
-code into this branch. 
+code into this branch. Also, this branch allow strict merge of minor
+corrections (e.g. typos, renaming, etc.)
 
 * ```feature``` branch: Should be created for implementation a new
 functionality. The development of new features starts from the "dev" branch.
@@ -40,12 +41,30 @@ functionality described in the ticket.
 released code if it goes wrong. The only branch which can be merged
 directly to the master branch.
 
+* ```bugfix``` branch: Branch for fixes of non-critical errors in the app 
+behaviour. This branch should be inherited from dev, opened after
+```bug report``` ticket were opened and should be numbered by ticket's number.
+The correction which presented in this code should be covered by a test case
+that catches the bug described in the ZenHub ticket. After all work is done
+all commits should be merged in the ```dev``` branch. Naming in this branch
+is equivalent to ```hotfix``` branch naming.
+
+* ```refactor``` branch: This branch should be created for the correction
+of the implementation which is working correctly but the way of its
+implementation has some flaws which are conflict with best practices,
+have some security vulnerabilities, or violates
+[Java Code Convention](https://www.oracle.com/technetwork/java/codeconventions-150003.pdf).
+This branch should be opened in according to Zenhub ticket. Result committed in
+this branch should be merged into dev by opening a pull request.
+
 ### Examples of naming:
 
 ```
 GOOD:
 feature/#2-Creating_new_functionality
 hotfix/#245-Unexeptable_response_during_pay_process
+bugfix/#252-Incorrect_route_building
+refactor/#632-Ticket_booking_service_logic_refactor
 
 BAD:
 Feature/230-WrongBranchName
