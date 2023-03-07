@@ -1,11 +1,13 @@
 package com.atmtrans.busbot.actions;
 
+import java.util.Collection;
+
 import lombok.RequiredArgsConstructor;
 
-import java.util.Collection;
 
 @RequiredArgsConstructor
 public class Hello implements Action {
+
     private final Collection<Action> children;
 
 

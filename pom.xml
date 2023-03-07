@@ -5,20 +5,49 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.2</version>
+        <version>3.0.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>com.atmtrans</groupId>
     <artifactId>busbot</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${version.major}.${version.minor}.${version.patch}-${version.ci.revision}</version>
+
     <name>busbot</name>
     <description>busbot</description>
     <properties>
+        <!--Project properties-->
+        <!--suppress UnresolvedMavenProperty -->
+        <checkstyle.configLocation>${maven.multiModuleProjectDirectory}/.github/checkstyle-configuration.xml
+        </checkstyle.configLocation>
         <java.version>17</java.version>
-        <sonar.organization>artmarchenko</sonar.organization>
-        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <java.target>17</java.target>
+        <version.major>0</version.major>
+        <version.minor>0</version.minor>
+        <version.patch>4</version.patch>
+        <version.ci.revision>SNAPSHOT</version.ci.revision>
 
+        <!--Dependency properties-->
+        <checkstyle.version>10.8.0</checkstyle.version>
+        <telegrambots.version>6.5.0</telegrambots.version>
+        <tinylog-api.version>2.6.0</tinylog-api.version>
+        <tinylog-impl.version>2.6.0</tinylog-impl.version>
+
+        <!--Plugin properties-->
+        <jib.version>3.3.1</jib.version>
+        <jib.goal>dockerBuild</jib.goal>
+        <maven.checkstyle.plugin.version>3.2.1</maven.checkstyle.plugin.version>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>pushToDockerHub</id>
+            <properties>
+                <jib.goal>build</jib.goal>
+            </properties>
+        </profile>
+    </profiles>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -30,33 +59,100 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
 
-
         <dependency>
             <groupId>org.telegram</groupId>
             <artifactId>telegrambots</artifactId>
-            <version>6.5.0</version>
+            <version>${telegrambots.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.tinylog</groupId>
             <artifactId>tinylog-api</artifactId>
-            <version>2.6.0</version>
+            <version>${tinylog-api.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.tinylog</groupId>
             <artifactId>tinylog-impl</artifactId>
-            <version>2.6.0</version>
+            <version>${tinylog-impl.version}</version>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
+
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>${jib.version}</version>
+                <configuration>
+                    <from>
+                        <auth>
+                            <username>${env.DOCKER_HUB_USERNAME}</username>
+                            <password>${env.DOCKER_HUB_TOKEN}</password>
+                        </auth>
+                    </from>
+                    <to>
+                        <image>atmtrans/busbot</image>
+                        <tags>
+                            <tag>${project.version}</tag>
+                        </tags>
+                        <auth>
+                            <username>${env.DOCKER_HUB_USERNAME}</username>
+                            <password>${env.DOCKER_HUB_TOKEN}</password>
+                        </auth>
+                    </to>
+                    <container>
+                        <mainClass>com.atmtrans.busbot.BusbotApplication</mainClass>
+                        <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
+                    </container>
+                    <allowInsecureRegistries>true</allowInsecureRegistries>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>${jib.goal}</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven.checkstyle.plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>${checkstyle.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <configLocation>${checkstyle.configLocation}</configLocation>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>checkstyle</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

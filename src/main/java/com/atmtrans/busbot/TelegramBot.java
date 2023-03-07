@@ -12,16 +12,21 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 import org.tinylog.Logger;
 
+
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
+
     private final String botName;
+
     private final TelegramBotController controller;
 
-
-    public TelegramBot(@Value("${bot.token}") String token, @Value("${bot.name}") String botName, TelegramBotController controller) throws TelegramApiException {
+    public TelegramBot(@Value("${bot.token}") String token, @Value("${bot.name}") String botName,
+                       TelegramBotController controller) throws TelegramApiException {
         super(token);
+
         this.botName = botName;
         this.controller = controller;
+
         Logger.info("TOKEN " + token);
         new TelegramBotsApi(DefaultBotSession.class).registerBot(this);
     }
@@ -30,9 +35,11 @@ public class TelegramBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         Logger.info("Update received");
+
         if (update.hasMessage() && update.getMessage().hasText()) {
             String messageText = update.getMessage().getText();
             long chatId = update.getMessage().getChatId();
+
             if (messageText.startsWith("/reset")) {
                 controller.reset(chatId);
             } else {

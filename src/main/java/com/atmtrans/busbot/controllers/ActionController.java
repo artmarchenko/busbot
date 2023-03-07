@@ -1,9 +1,5 @@
 package com.atmtrans.busbot.controllers;
 
-import com.atmtrans.busbot.actions.Action;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,10 +7,17 @@ import java.util.NoSuchElementException;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import com.atmtrans.busbot.actions.Action;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+
 @Component
 public class ActionController implements TelegramBotController {
     private final Action helloAction;
+
     private final Map<String, Action> actions;
+
     private final Map<Long, String> dialogPositions = new HashMap<>();
 
     public ActionController(Collection<Action> actions, @Qualifier("hello") Action hello) {
