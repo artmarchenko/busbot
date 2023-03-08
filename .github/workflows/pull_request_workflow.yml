@@ -24,7 +24,7 @@ jobs:
           java-version: 17
           distribution: temurin
 
-      - name: Publish to Docker Hub
+      - name: Project build
         #        if: "startsWith(env.TAG_NAME, 'dev') || startsWith(env.TAG_NAME, 'release')"
         run: >-
           mvn 
