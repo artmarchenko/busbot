@@ -26,6 +26,9 @@
         <version.minor>0</version.minor>
         <version.patch>4</version.patch>
         <version.ci.revision>SNAPSHOT</version.ci.revision>
+        <sonar.host.url>http://sonarcloud.io</sonar.host.url>
+        <sonar.organization>artmarchenko</sonar.organization>
+        <sonar.projectKey>artmarchenko_busbot</sonar.projectKey>
 
         <!--Dependency properties-->
         <checkstyle.version>10.8.0</checkstyle.version>
