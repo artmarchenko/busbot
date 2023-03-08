@@ -26,6 +26,10 @@ jobs:
 
       - name: Project build
         #        if: "startsWith(env.TAG_NAME, 'dev') || startsWith(env.TAG_NAME, 'release')"
-        run: >-
-          mvn 
-          clean install
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          run: mvn clean install sonar:sonar \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.organization=artmarchenko \
+            -Dsonar.projectKey=artmarchenko_busbot
