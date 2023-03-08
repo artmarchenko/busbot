@@ -1,13 +1,13 @@
-name: Build and deploy workflow
+name: Push workflow
 
 on:
   push:
     branches:
-      - dev
       - master
-      - 'release/**'
+#      - dev
+#      - 'release/**'
 #      - 'hotfix/**'
-      - 'feature/**'
+#      - 'feature/**'
 
 jobs:
   package:
