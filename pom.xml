@@ -26,17 +26,24 @@
         <version.minor>0</version.minor>
         <version.patch>4</version.patch>
         <version.ci.revision>SNAPSHOT</version.ci.revision>
+        <sonar.host.url>http://sonarcloud.io</sonar.host.url>
+        <sonar.organization>artmarchenko</sonar.organization>
+        <sonar.projectKey>artmarchenko_busbot</sonar.projectKey>
 
         <!--Dependency properties-->
+        <guava.version>31.1-jre</guava.version>
         <checkstyle.version>10.8.0</checkstyle.version>
         <telegrambots.version>6.5.0</telegrambots.version>
         <tinylog-api.version>2.6.0</tinylog-api.version>
         <tinylog-impl.version>2.6.0</tinylog-impl.version>
 
         <!--Plugin properties-->
+        <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
         <jib.version>3.3.1</jib.version>
         <jib.goal>dockerBuild</jib.goal>
         <maven.checkstyle.plugin.version>3.2.1</maven.checkstyle.plugin.version>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
     </properties>
 
     <profiles>
@@ -49,21 +56,28 @@
     </profiles>
 
     <dependencies>
+        <!--Spring dependencies-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
         </dependency>
 
         <dependency>
@@ -86,8 +100,29 @@
     </dependencies>
 
     <build>
-        <plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${jacoco-maven-plugin.version}</version>
+                </plugin>
 
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>${sonar-maven-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
             <plugin>
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>jib-maven-plugin</artifactId>
@@ -164,6 +199,20 @@
                         </exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>${sonar-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sonar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

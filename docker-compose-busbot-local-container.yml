@@ -6,3 +6,5 @@ services:
     environment:
       BOT_TOKEN: ${BOT_TOKEN}
       BOT_NAME: ${BOT_NAME}
+
+# docker-compose -f docker-compose-busbot-local-container.yml up
