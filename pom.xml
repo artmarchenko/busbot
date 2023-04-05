@@ -17,7 +17,6 @@
     <description>busbot</description>
     <properties>
         <!--Project properties-->
-        <project.resourcesDirectory>${project.basedir}/src/main/resources</project.resourcesDirectory>
         <!--suppress UnresolvedMavenProperty -->
         <checkstyle.configLocation>${maven.multiModuleProjectDirectory}/.github/checkstyle-configuration.xml
         </checkstyle.configLocation>
