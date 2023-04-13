@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - includeAll:
+      path: liquibase-changelog
+      relativeToChangelogFile: true

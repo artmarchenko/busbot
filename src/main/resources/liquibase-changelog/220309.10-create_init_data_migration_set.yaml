@@ -1,0 +1,341 @@
+databaseChangeLog:
+  - changeSet:
+      id: 10.user.1
+      author: rain
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: telegram_user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: enabled
+                  type: boolean
+                  defaultValue: true
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 10.user.2
+      author: rain
+      changes:
+        - createSequence:
+            dataType: bigint
+            sequenceName: users_seq
+            incrementBy: 50
+
+  - changeSet:
+      id: 10.user.3
+      author: rain
+      changes:
+        - createTable:
+            tableName: authorities
+            columns:
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    references: users(id)
+                    foreignKeyName: authorities_fk
+                    deleteCascade: true
+                    unique: true
+                    uniqueConstraintName: authorities_uniq
+              - column:
+                  name: authority
+                  type: varchar(128)
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: authorities_uniq
+
+  - changeSet:
+      id: 10.loc.1
+      author: rain
+      changes:
+        - createTable:
+            tableName: countries
+            columns:
+              - column:
+                  name: code
+                  remarks: iso2 code
+                  type: char(2)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(128)
+                  constraints:
+                    nullable: false
+                    unique: true
+
+  - changeSet:
+      id: 10.loc.2
+      author: rain
+      changes:
+        - createTable:
+            tableName: cities
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: country_code
+                  type: varchar(2)
+                  constraints:
+                    nullable: false
+                    references: countries(code)
+                    foreignKeyName: cities_fk
+  - changeSet:
+      id: 10.loc.3
+      author: rain
+      changes:
+        - createSequence:
+            dataType: bigint
+            sequenceName: cities_seq
+            incrementBy: 50
+
+  - changeSet:
+      id: 10.loc.4
+      author: rain
+      changes:
+        - createTable:
+            tableName: cities_3rdp_api_data
+            columns:
+              - column:
+                  name: city_id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    references: cities(id)
+                    foreignKeyName: cities_3rdp_api_data_fk
+                    deleteCascade: true
+              - column:
+                  name: api_name
+                  type: varchar(128)
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: cities_3rdp_api_data_uniq
+              - column:
+                  name: api_city_id
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: cities_3rdp_api_data_uniq
+              - column:
+                  name: data
+                  type: clob #json
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 10.route.1
+      author: rain
+      changes:
+        - createTable:
+            tableName: stops
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(128)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: address
+                  type: varchar(256)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: geolocation
+                  type: varchar(128)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: city_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    references: cities(id)
+                    foreignKeyName: stops_fk
+  - changeSet:
+      id: 10.route.2
+      author: rain
+      changes:
+        - createSequence:
+            dataType: bigint
+            sequenceName: stops_seq
+            incrementBy: 50
+
+  - changeSet:
+      id: 10.route.3
+      author: rain
+      changes:
+        - createTable:
+            tableName: routes
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: enabled
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(128)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: description
+                  type: text
+                  constraints:
+                    nullable: true
+  - changeSet:
+      id: 10.route.4
+      author: rain
+      changes:
+        - createSequence:
+            dataType: bigint
+            sequenceName: routes_seq
+            incrementBy: 50
+
+  - changeSet:
+      id: 10.route.5
+      author: rain
+      changes:
+        - createTable:
+            tableName: route_segments
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: route_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    references: routes(id)
+                    foreignKeyName: route_segments_route_fk
+                    deleteCascade: true
+              - column:
+                  name: departure_stop_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    references: stops(id)
+                    foreignKeyName: route_segments_depart_fk
+              - column:
+                  name: arrival_stop_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    references: stops(id)
+                    foreignKeyName: route_segments_arrive_fk
+  - changeSet:
+      id: 10.route.6
+      author: rain
+      changes:
+        - createSequence:
+            dataType: bigint
+            sequenceName: route_segments_seq
+            incrementBy: 50
+
+  - changeSet:
+      id: 10.voyage.1
+      author: rain
+      changes:
+        - createTable:
+            tableName: voyages
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: route_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    references: routes(id)
+                    foreignKeyName: voyages_fk
+              - column:
+                  name: datetime
+                  type: timestamp
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 10.voyage.2
+      author: rain
+      changes:
+        - createSequence:
+            dataType: bigint
+            sequenceName: voyages_seq
+            incrementBy: 50
+
+  - changeSet:
+      id: 10.voyage.3
+      author: rain
+      changes:
+        - createTable:
+            tableName: seats
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: voyage_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    references: voyages(id)
+                    foreignKeyName: seats_fk
+                    deleteCascade: true
+                    unique: true
+                    uniqueConstraintName: voyages_uniq
+              - column:
+                  name: seat_number
+                  type: int
+                  constraints:
+                    nullable: true
+                    unique: true
+                    uniqueConstraintName: voyages_uniq
+  - changeSet:
+      id: 10.voyage.4
+      author: rain
+      changes:
+        - createSequence:
+            dataType: bigint
+            sequenceName: seats_seq
+            incrementBy: 50
