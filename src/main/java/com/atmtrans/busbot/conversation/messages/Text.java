@@ -10,7 +10,7 @@ import lombok.ToString;
 @Getter
 public class Text extends AbstractConversationMessage {
 
-    private static final PurchaseTicketsEvent event = PurchaseTicketsEvent.TEXTED;
+    private static final PurchaseTicketsEvent EVENT = PurchaseTicketsEvent.TEXTED;
 
     private String text;
 
@@ -21,6 +21,6 @@ public class Text extends AbstractConversationMessage {
 
     @Override
     public PurchaseTicketsEvent getEvent() {
-        return event;
+        return EVENT;
     }
 }

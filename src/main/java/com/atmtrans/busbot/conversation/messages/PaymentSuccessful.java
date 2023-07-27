@@ -10,7 +10,7 @@ import lombok.ToString;
 @Getter
 public class PaymentSuccessful extends AbstractConversationMessage {
 
-    private static final PurchaseTicketsEvent event = PurchaseTicketsEvent.PAYED;
+    private static final PurchaseTicketsEvent EVENT = PurchaseTicketsEvent.PAYED;
 
     private Long routeId;
 
@@ -20,6 +20,6 @@ public class PaymentSuccessful extends AbstractConversationMessage {
 
     @Override
     public PurchaseTicketsEvent getEvent() {
-        return event;
+        return EVENT;
     }
 }

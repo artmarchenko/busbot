@@ -10,7 +10,7 @@ import lombok.ToString;
 @Getter
 public class SelectRoute extends AbstractConversationMessage {
 
-    private static final PurchaseTicketsEvent event = PurchaseTicketsEvent.ROUTE_SELECTED;
+    private static final PurchaseTicketsEvent EVENT = PurchaseTicketsEvent.ROUTE_SELECTED;
 
     private final Long routeId;
 
@@ -21,6 +21,6 @@ public class SelectRoute extends AbstractConversationMessage {
 
     @Override
     public PurchaseTicketsEvent getEvent() {
-        return event;
+        return EVENT;
     }
 }

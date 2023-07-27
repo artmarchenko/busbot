@@ -34,7 +34,7 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<Purcha
     }
 
     @Override
-    public void configure(final StateMachineStateConfigurer<PurchaseTicketsState, PurchaseTicketsEvent> states)
+    public void configure(StateMachineStateConfigurer<PurchaseTicketsState, PurchaseTicketsEvent> states)
         throws Exception {
         states
             .withStates()
@@ -44,7 +44,7 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<Purcha
     }
 
     @Override
-    public void configure(final StateMachineTransitionConfigurer<PurchaseTicketsState, PurchaseTicketsEvent> transitions)
+    public void configure(StateMachineTransitionConfigurer<PurchaseTicketsState, PurchaseTicketsEvent> transitions)
         throws Exception {
 
         transitions

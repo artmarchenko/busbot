@@ -12,7 +12,7 @@ import lombok.ToString;
 @Getter
 public class SelectVoyageDate extends AbstractConversationMessage {
 
-    private static final PurchaseTicketsEvent event = PurchaseTicketsEvent.VOYAGE_DATE_SELECTED;
+    private static final PurchaseTicketsEvent EVENT = PurchaseTicketsEvent.VOYAGE_DATE_SELECTED;
 
     private final LocalDate date;
 
@@ -23,6 +23,6 @@ public class SelectVoyageDate extends AbstractConversationMessage {
 
     @Override
     public PurchaseTicketsEvent getEvent() {
-        return event;
+        return EVENT;
     }
 }

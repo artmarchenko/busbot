@@ -11,7 +11,8 @@ import org.springframework.statemachine.StateMachinePersist;
 public class PurchaseTicketsStateMachinePersister
     implements StateMachinePersist<PurchaseTicketsState, PurchaseTicketsEvent, Long> {
 
-    private final HashMap<Long, StateMachineContext<PurchaseTicketsState, PurchaseTicketsEvent>> contexts = new HashMap<>();
+    private final HashMap<Long, StateMachineContext<PurchaseTicketsState, PurchaseTicketsEvent>> contexts =
+        new HashMap<>();
 
     @Override
     public void write(final StateMachineContext<PurchaseTicketsState, PurchaseTicketsEvent> context, Long userId) {
