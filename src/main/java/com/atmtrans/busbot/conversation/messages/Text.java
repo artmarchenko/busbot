@@ -10,12 +10,17 @@ import lombok.ToString;
 @Getter
 public class Text extends AbstractConversationMessage {
 
-    private static final @Getter PurchaseTicketsEvent event = PurchaseTicketsEvent.TEXTED;
+    private static final PurchaseTicketsEvent event = PurchaseTicketsEvent.TEXTED;
 
     private String text;
 
     public Text(long userId, String text) {
         super(userId);
         this.text = text;
+    }
+
+    @Override
+    public PurchaseTicketsEvent getEvent() {
+        return event;
     }
 }

@@ -12,12 +12,17 @@ import lombok.ToString;
 @Getter
 public class SelectVoyageDate extends AbstractConversationMessage {
 
-    private static final @Getter PurchaseTicketsEvent event = PurchaseTicketsEvent.VOYAGE_DATE_SELECTED;
+    private static final PurchaseTicketsEvent event = PurchaseTicketsEvent.VOYAGE_DATE_SELECTED;
 
     private final LocalDate date;
 
     public SelectVoyageDate(long userId, LocalDate date) {
         super(userId);
         this.date = date;
+    }
+
+    @Override
+    public PurchaseTicketsEvent getEvent() {
+        return event;
     }
 }
