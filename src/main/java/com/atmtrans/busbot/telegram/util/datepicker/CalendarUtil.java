@@ -61,7 +61,7 @@ public class CalendarUtil {
 
         for (int i = 0; i < rows; i++) {
             keyboard.add(buildRow(firstDay, shift));
-            firstDay = firstDay.plusDays(7 - shift);
+            firstDay = firstDay.plusDays(7L - shift);
             shift = 0;
         }
 

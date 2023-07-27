@@ -1,7 +1,6 @@
 package com.atmtrans.busbot.conversation.machine.states;
 
-//TODO ticket purchase
-public enum RoutePurchaseState implements State {
+public enum PurchaseTicketsState implements State {
 
     WAIT_NAME,
     WAIT_DATE,

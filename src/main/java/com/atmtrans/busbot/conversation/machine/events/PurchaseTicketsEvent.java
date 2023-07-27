@@ -1,7 +1,7 @@
 package com.atmtrans.busbot.conversation.machine.events;
 
 
-public enum RoutePurchaseEvent {
+public enum PurchaseTicketsEvent {
     ROUTE_SELECTED,
 
     TEXTED,

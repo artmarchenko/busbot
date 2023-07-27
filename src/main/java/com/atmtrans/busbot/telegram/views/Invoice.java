@@ -3,13 +3,13 @@ package com.atmtrans.busbot.telegram.views;
 import java.io.IOException;
 import java.time.LocalDate;
 
-import com.atmtrans.busbot.conversation.machine.states.RoutePurchaseState;
+import com.atmtrans.busbot.conversation.machine.states.PurchaseTicketsState;
 import com.atmtrans.busbot.springframework.stereotype.StateNameBasedTelegramView;
 import com.pengrad.telegrambot.model.request.LabeledPrice;
 import com.pengrad.telegrambot.request.SendInvoice;
 
 
-@StateNameBasedTelegramView(RoutePurchaseState.WAIT_INVOICE)
+@StateNameBasedTelegramView(PurchaseTicketsState.WAIT_INVOICE)
 public class Invoice implements View {
 
     private LocalDate month;

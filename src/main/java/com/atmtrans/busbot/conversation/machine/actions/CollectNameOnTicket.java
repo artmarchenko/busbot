@@ -3,8 +3,8 @@ package com.atmtrans.busbot.conversation.machine.actions;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import com.atmtrans.busbot.conversation.machine.events.RoutePurchaseEvent;
-import com.atmtrans.busbot.conversation.machine.states.RoutePurchaseState;
+import com.atmtrans.busbot.conversation.machine.events.PurchaseTicketsEvent;
+import com.atmtrans.busbot.conversation.machine.states.PurchaseTicketsState;
 import com.atmtrans.busbot.conversation.messages.Text;
 import com.atmtrans.busbot.conversation.model.DatePicker;
 import com.atmtrans.busbot.model.ShoppingCart;
@@ -18,7 +18,7 @@ public class CollectNameOnTicket extends AbstractPurchaseTicketFlowAction<Text> 
     }
 
     @Override
-    public void execute(StateContext<RoutePurchaseState, RoutePurchaseEvent> context) {
+    public void execute(StateContext<PurchaseTicketsState, PurchaseTicketsEvent> context) {
         ShoppingCart cart = get(context, ShoppingCart.class);
         Text msg = getMessage(context);
 

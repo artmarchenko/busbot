@@ -1,9 +1,9 @@
 package com.atmtrans.busbot.conversation.messages;
 
-import com.atmtrans.busbot.conversation.machine.events.RoutePurchaseEvent;
+import com.atmtrans.busbot.conversation.machine.events.PurchaseTicketsEvent;
 
 
 public interface ConversationMessage {
 
-    RoutePurchaseEvent getEvent();
+    PurchaseTicketsEvent getEvent();
 }

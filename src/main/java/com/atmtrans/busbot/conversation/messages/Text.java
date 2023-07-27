@@ -1,7 +1,7 @@
 package com.atmtrans.busbot.conversation.messages;
 
 
-import com.atmtrans.busbot.conversation.machine.events.RoutePurchaseEvent;
+import com.atmtrans.busbot.conversation.machine.events.PurchaseTicketsEvent;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -10,9 +10,9 @@ import lombok.ToString;
 @Getter
 public class Text extends AbstractConversationMessage {
 
-    RoutePurchaseEvent event = RoutePurchaseEvent.TEXTED;
+    private static final @Getter PurchaseTicketsEvent event = PurchaseTicketsEvent.TEXTED;
 
-    String text;
+    private String text;
 
     public Text(long userId, String text) {
         super(userId);

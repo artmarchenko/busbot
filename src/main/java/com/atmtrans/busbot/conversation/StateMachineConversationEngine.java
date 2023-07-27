@@ -1,8 +1,8 @@
 package com.atmtrans.busbot.conversation;
 
-import com.atmtrans.busbot.conversation.machine.events.RoutePurchaseEvent;
+import com.atmtrans.busbot.conversation.machine.events.PurchaseTicketsEvent;
 import com.atmtrans.busbot.conversation.machine.mv.ModelAndView;
-import com.atmtrans.busbot.conversation.machine.states.RoutePurchaseState;
+import com.atmtrans.busbot.conversation.machine.states.PurchaseTicketsState;
 import com.atmtrans.busbot.conversation.messages.AbstractConversationMessage;
 import com.atmtrans.busbot.conversation.model.Model;
 import com.atmtrans.busbot.model.ShoppingCart;
@@ -18,9 +18,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class StateMachineConversationEngine implements ConversationEngine {
 
-    private final StateMachineFactory<RoutePurchaseState, RoutePurchaseEvent> stateMachineFactory;
+    private final StateMachineFactory<PurchaseTicketsState, PurchaseTicketsEvent> stateMachineFactory;
 
-    private final StateMachinePersister<RoutePurchaseState, RoutePurchaseEvent, Long> persister;
+    private final StateMachinePersister<PurchaseTicketsState, PurchaseTicketsEvent, Long> persister;
 
     @Override
     public ModelAndView sendMessage(AbstractConversationMessage msg) throws Exception {
@@ -38,7 +38,7 @@ public class StateMachineConversationEngine implements ConversationEngine {
         log.debug("Context: " + machine.getExtendedState().get(ShoppingCart.class, ShoppingCart.class));
 
 
-        RoutePurchaseState state = machine.getState().getId();
+        PurchaseTicketsState state = machine.getState().getId();
         Object model = machine.getExtendedState().get(Model.class.getName(), Object.class);
 
         if (null != model) {

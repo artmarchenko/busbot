@@ -55,6 +55,7 @@ public class CalendarController extends AbstractTelegramMvcController {
     }
 
     @CallbackQueryRequest("calendar:ignore!@#$%^&")
-    public void ignore() {
+    public void ignoreInactiveButton() {
+        //this empty method is self documented
     }
 }

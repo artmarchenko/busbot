@@ -6,7 +6,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.atmtrans.busbot.conversation.machine.states.RoutePurchaseState;
+import com.atmtrans.busbot.conversation.machine.states.PurchaseTicketsState;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -17,5 +17,5 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public @interface StateNameBasedTelegramView {
 
-    RoutePurchaseState value();
+    PurchaseTicketsState value();
 }
