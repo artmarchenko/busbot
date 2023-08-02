@@ -106,9 +106,21 @@
         </dependency>
 
         <dependency>
-            <groupId>org.telegram</groupId>
-            <artifactId>telegrambots</artifactId>
-            <version>${telegrambots.version}</version>
+            <groupId>com.github.spullara.mustache.java</groupId>
+            <artifactId>compiler</artifactId>
+            <version>0.9.10</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.statemachine</groupId>
+            <artifactId>spring-statemachine-core</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.kshashov</groupId>
+            <artifactId>spring-boot-starter-telegram</artifactId>
+            <version>0.29</version>
         </dependency>
 
         <dependency>
